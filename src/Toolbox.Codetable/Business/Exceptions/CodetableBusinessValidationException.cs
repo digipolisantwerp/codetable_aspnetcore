@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Toolbox.Codetable.Business
 {
-    public class CodetabelBusinessValidationException : Exception
+    public class CodetableBusinessValidationException : Exception
     {
-        public CodetabelBusinessValidationException(Error error)
+        public CodetableBusinessValidationException(Error error)
         {
             this.Error = error;
         }
 
-        public CodetabelBusinessValidationException(string message, params object[] args) : this(new Error())
+        public CodetableBusinessValidationException(string message, params object[] args) : this(new Error())
         {
             this.Error = new Error(message, args);
         }
 
-        public CodetabelBusinessValidationException(IEnumerable<string> messages)
+        public CodetableBusinessValidationException(IEnumerable<string> messages)
         {
             this.Error = new Error(messages);
         }

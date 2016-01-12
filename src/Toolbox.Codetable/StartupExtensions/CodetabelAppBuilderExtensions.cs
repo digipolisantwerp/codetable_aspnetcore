@@ -13,18 +13,18 @@ using Microsoft.AspNet.Mvc.Infrastructure;
 
 namespace Toolbox.Codetable
 {
-    public static class CodetabelAppBuilderExtensions
+    public static class CodetableAppBuilderExtensions
     {
         /// <summary>
-        /// Voegt het CodetabelDiscovery framework toe aan de toepassing zodat de lijst van codetabellen opvraagbaar is.
+        /// Adds the CodetableDiscovery framework to the application so that the list of codetables can be requested.
         /// </summary>
-        /// <param name="app">De IApplicationBuilder van de toepassing.</param>        
-        /// <returns>De IApplicationBuilder de toepassing.</returns>
-        public static IApplicationBuilder UseCodetabelDiscovery(this IApplicationBuilder app)
+        /// <param name="app">The IApplicationBuilder of the application.</param>        
+        /// <returns>The IApplicationBuilder the applpication.</returns>
+        public static IApplicationBuilder UseCodetableDiscovery(this IApplicationBuilder app)
         {
-            var provider = app.ApplicationServices.GetService<ICodetabelProvider>();
-            if (provider == null) throw ExceptionProvider.CodetabelProviderNietGeregistreerd();
-            var options = app.ApplicationServices.GetService<CodetabelDiscoveryOptions>();
+            var provider = app.ApplicationServices.GetService<ICodetableProvider>();
+            if (provider == null) throw ExceptionProvider.CodetableProviderNotRegistered();
+            var options = app.ApplicationServices.GetService<CodetableDiscoveryOptions>();
             var assembly = options.ControllerAssembly == null ? Assembly.GetCallingAssembly() : options.ControllerAssembly;
             provider.Load(assembly);
 
@@ -35,27 +35,27 @@ namespace Toolbox.Codetable
 
         private static void SetRoute(IApplicationBuilder app, string route)
         {
-            if (route.ToLower() != Routes.CodetabelProviderController)
+            if (route.ToLower() != Routes.CodetableProviderController)
             {
-                var controllers = GetCodetabelProviderControllers(app);
+                var controllers = GetCodetableProviderControllers(app);
 
-                var routeBuilder = app.ApplicationServices.GetService<ICodetabelDiscoveryRouteBuilder>();
-                if (routeBuilder == null) throw ExceptionProvider.RouteBuilderNietGeregistreerd();
+                var routeBuilder = app.ApplicationServices.GetService<ICodetableDiscoveryRouteBuilder>();
+                if (routeBuilder == null) throw ExceptionProvider.RouteBuilderNotRegistered();
 
                 routeBuilder.SetRoute(controllers, route);
             }
         }
 
-        private static IEnumerable<ActionDescriptor> GetCodetabelProviderControllers(IApplicationBuilder app)
+        private static IEnumerable<ActionDescriptor> GetCodetableProviderControllers(IApplicationBuilder app)
         {
             var actionDescriptorsProvider = app.ApplicationServices.GetService<IActionDescriptorsCollectionProvider>();
-            if (actionDescriptorsProvider == null) throw ExceptionProvider.MvcNietGeregistreerdGeenActionDescriptorsProvider();
+            if (actionDescriptorsProvider == null) throw ExceptionProvider.MvcNotRegisteredNoActionDescriptorsProvider();
 
             var controllers = from c in actionDescriptorsProvider.ActionDescriptors.Items
-                              where c.DisplayName.ToLower().StartsWith("Toolbox.Codetable.codetabelprovider", StringComparison.Ordinal)
+                              where c.DisplayName.ToLower().StartsWith("Toolbox.Codetable.codetableprovider", StringComparison.Ordinal)
                               select c;
 
-            if (controllers.Count() == 0) throw ExceptionProvider.MvcNietGeregistreerdGeenControllers();
+            if (controllers.Count() == 0) throw ExceptionProvider.MvcNotRegisteredNoControllers();
 
             return controllers;
         }

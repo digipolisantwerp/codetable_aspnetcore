@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Toolbox.Codetable.Business
 {
-    public class CodeTabelWriter<T> : ICodetabelWriter<T> where T : CodetabelEntityBase
+    public class CodeTabelWriter<T> : ICodetableWriter<T> where T : CodetableEntityBase
     {
         public CodeTabelWriter(ILogger logger, IUowProvider uowProvider)
         {
@@ -22,7 +22,7 @@ namespace Toolbox.Codetable.Business
 
         public async Task<T> InsertAsync(T entity)
         {
-            if (entity == null) throw new ArgumentException("No codetabel provided", nameof(entity));
+            if (entity == null) throw new ArgumentException("No codetable provided", nameof(entity));
 
 
 
@@ -37,7 +37,7 @@ namespace Toolbox.Codetable.Business
 
         public async Task UpdateAsync(T entity)
         {
-            if (entity == null) throw new ArgumentException("No codetabel provided", nameof(entity));
+            if (entity == null) throw new ArgumentException("No codetable provided", nameof(entity));
 
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {

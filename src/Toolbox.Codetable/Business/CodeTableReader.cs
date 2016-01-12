@@ -11,9 +11,9 @@ using Toolbox.DataAccess.Query;
 
 namespace Toolbox.Codetable.Business
 {
-    public class CodetabelReader<T> : ICodetabelReader<T> where T : CodetabelEntityBase
+    public class CodetableReader<T> : ICodetableReader<T> where T : CodetableEntityBase
     {
-        public CodetabelReader(ILogger logger, IUowProvider uowProvider)
+        public CodetableReader(ILogger logger, IUowProvider uowProvider)
         {
             _logger = logger;
             _uowProvider = uowProvider;
@@ -22,7 +22,7 @@ namespace Toolbox.Codetable.Business
         protected readonly ILogger _logger;
         protected readonly IUowProvider _uowProvider;
 
-        protected OrderBy<T> Ordering => new OrderBy<T>(query => query.OrderBy(a => a.Volgnummer));
+        protected OrderBy<T> Ordering => new OrderBy<T>(query => query.OrderBy(a => a.Serialnumber));
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {

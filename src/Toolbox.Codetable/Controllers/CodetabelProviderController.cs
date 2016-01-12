@@ -6,25 +6,25 @@ using Microsoft.AspNet.Mvc;
 namespace Toolbox.Codetable
 {
     /// <summary>
-    /// Controller die de lijst van codetabellen via discovery publiek maakt.
+    /// Controller that makes the list of codetables public via discovery.
     /// </summary>
-    [Route(Routes.CodetabelProviderController)]
-    public class CodetabelProviderController : Controller
+    [Route(Routes.CodetableProviderController)]
+    public class CodetableProviderController : Controller
     {
-        public CodetabelProviderController(ICodetabelProvider provider)
+        public CodetableProviderController(ICodetableProvider provider)
         {
             _provider = provider;
         }
 
-        private readonly ICodetabelProvider _provider;
+        private readonly ICodetableProvider _provider;
 
         [HttpGet("")]
         public IActionResult GetAll()
         {
             try
             {
-                var codetabellen = _provider.Codetabellen;
-                var models = ( from ct in codetabellen select new CodetabelInfo() { Naam = ct.Naam, Route = ct.Route } ).ToList();
+                var codetables = _provider.Codetables;
+                var models = ( from ct in codetables select new CodetableInfo() { Name = ct.Name, Route = ct.Route } ).ToList();
                 return new ObjectResult(models) { StatusCode = 200 };
             }
             catch ( Exception ex )

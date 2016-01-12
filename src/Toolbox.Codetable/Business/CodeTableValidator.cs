@@ -3,19 +3,19 @@ using System;
 
 namespace Toolbox.Codetable.Business
 {
-    public class CodeTabelValidator<T> : ICodeTabelValidator<T> where T :  CodetabelEntityBase
+    public class CodeTabelValidator<T> : ICodeTabelValidator<T> where T :  CodetableEntityBase
     {
-        public void KanGebruikerDeleten(T entity)
+        public void CanUserDelete(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public void KanGebruikerInserten(T entity)
+        public void CanUserInsert(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public void KanGebruikerUpdaten(T entity)
+        public void CanUserUpdate(T entity)
         {
             throw new NotImplementedException();
         }

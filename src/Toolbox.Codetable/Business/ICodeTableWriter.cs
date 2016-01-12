@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Toolbox.Codetable.Business
 {
-    public interface ICodetabelWriter<T> where T : CodetabelEntityBase
+    public interface ICodetableWriter<T> where T : CodetableEntityBase
     {
         Task<T> InsertAsync(T entity);
         Task UpdateAsync(T entity);

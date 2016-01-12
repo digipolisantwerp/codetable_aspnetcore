@@ -5,7 +5,7 @@ using Microsoft.AspNet.Mvc.Abstractions;
 
 namespace Toolbox.Codetable
 {
-    public interface ICodetabelDiscoveryRouteBuilder
+    public interface ICodetableDiscoveryRouteBuilder
     {
         void SetRoute(IEnumerable<ActionDescriptor> actionDescriptors, string route);
     }

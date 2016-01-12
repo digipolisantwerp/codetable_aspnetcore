@@ -1,44 +1,44 @@
 ﻿using System;
 using Xunit;
 
-namespace Toolbox.Codetable.UnitTests.CodetabelControllerAttributeTests
+namespace Toolbox.Codetable.UnitTests.CodetableControllerAttributeTests
 {
     public class InstantiationTests
     {
         [Fact]
         public void DefaultNaamIsController()
         {
-            var attrib = new CodetabelControllerAttribute();
-            Assert.Equal("[controller]", attrib.Naam);
+            var attrib = new CodetableControllerAttribute();
+            Assert.Equal("[controller]", attrib.Name);
         }
 
         [Fact]
         public void CtorZetNaam()
         {
-            const string naam = "MijnCodetabel";
-            var attrib = new CodetabelControllerAttribute(naam);
-            Assert.Equal(naam, attrib.Naam);
+            const string name = "MyCodetable";
+            var attrib = new CodetableControllerAttribute(name);
+            Assert.Equal(name, attrib.Name);
         }
 
         [Fact]
         public void CtorMetNaamNullRaisesArgumentNullException()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => new CodetabelControllerAttribute(null));
-            Assert.Equal("naam", ex.ParamName);
+            var ex = Assert.Throws<ArgumentNullException>(() => new CodetableControllerAttribute(null));
+            Assert.Equal("name", ex.ParamName);
         }
 
         [Fact]
         public void CtorMetNaamEmptyRaisesArgumentException()
         {
-            var ex = Assert.Throws<ArgumentException>(() => new CodetabelControllerAttribute(""));
-            Assert.Equal("naam", ex.ParamName);
+            var ex = Assert.Throws<ArgumentException>(() => new CodetableControllerAttribute(""));
+            Assert.Equal("name", ex.ParamName);
         }
 
         [Fact]
         public void CtorMetNaamWhitespaceRaisesArgumentException()
         {
-            var ex = Assert.Throws<ArgumentException>(() => new CodetabelControllerAttribute("   "));
-            Assert.Equal("naam", ex.ParamName);
+            var ex = Assert.Throws<ArgumentException>(() => new CodetableControllerAttribute("   "));
+            Assert.Equal("name", ex.ParamName);
         }
     }
 }

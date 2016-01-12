@@ -5,31 +5,31 @@ using Toolbox.Common.Helpers;
 
 namespace Toolbox.Codetable
 {
-    public class CodetabelDiscoveryOptions
+    public class CodetableDiscoveryOptions
     {
-        public CodetabelDiscoveryOptions(Assembly controllerAssembly = null)
+        public CodetableDiscoveryOptions(Assembly controllerAssembly = null)
         {
             if ( controllerAssembly == null )
                 ControllerAssembly = FindControllerAssembly();
             else
                 ControllerAssembly = controllerAssembly;
-            this.Route = Routes.CodetabelProviderController;
+            this.Route = Routes.CodetableProviderController;
         }
 
         /// <summary>
-        /// De route waar de lijst van codetabellen kan opgevraagd worden (default = '/admin/codetabel').
+        /// The route where the list of codetables can be requested (default = '/admin/codetable').
         /// </summary>
         public string Route { get; set; }
 
         /// <summary>
-        /// De assembly waar de codetabel controllers gedefinieerd zijn (default = de assembly waar de Startup class gevonden wordt).
+        /// The assembly where the codetable controllers are defined (default = the assembly where the Startup class is found).
         /// </summary>
         public Assembly ControllerAssembly { get; private set; }
 
         /// <summary>
-        /// Default Route = 'admin/codetabel' en default Assembly is diegene waar de Startup class in gevonden wordt.
+        /// Default Route = 'admin/codetable' and default Assembly is the one where the Startup class is in.
         /// </summary>
-        public static CodetabelDiscoveryOptions Default {  get { return new CodetabelDiscoveryOptions(); } }
+        public static CodetableDiscoveryOptions Default {  get { return new CodetableDiscoveryOptions(); } }
 
         private Assembly FindControllerAssembly()
         {

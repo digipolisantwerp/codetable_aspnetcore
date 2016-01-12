@@ -6,7 +6,7 @@ using Microsoft.AspNet.Mvc.Routing;
 using Xunit;
 using Microsoft.AspNet.Mvc.Abstractions;
 
-namespace Toolbox.Codetable.UnitTests.CodetabelDiscoveryRouteBuilderTests
+namespace Toolbox.Codetable.UnitTests.CodetableDiscoveryRouteBuilderTests
 {
     public class SetRouteTests
     {
@@ -16,18 +16,18 @@ namespace Toolbox.Codetable.UnitTests.CodetabelDiscoveryRouteBuilderTests
             var descriptor = new ActionDescriptor()
             {
                 DisplayName = "controller",
-                AttributeRouteInfo = new AttributeRouteInfo() { Template = Routes.CodetabelProviderController }
+                AttributeRouteInfo = new AttributeRouteInfo() { Template = Routes.CodetableProviderController }
             };
 
             var actionDescriptors = new List<ActionDescriptor>();
             actionDescriptors.Add(descriptor);
 
-            var newRoute = Routes.CodetabelProviderController;
+            var newRoute = Routes.CodetableProviderController;
 
-            var builder = new CodetabelDiscoveryRouteBuilder();
+            var builder = new CodetableDiscoveryRouteBuilder();
             builder.SetRoute(actionDescriptors, newRoute);
 
-            Assert.Equal(Routes.CodetabelProviderController, descriptor.AttributeRouteInfo.Template);
+            Assert.Equal(Routes.CodetableProviderController, descriptor.AttributeRouteInfo.Template);
         }
 
         [Fact]
@@ -36,18 +36,18 @@ namespace Toolbox.Codetable.UnitTests.CodetabelDiscoveryRouteBuilderTests
             var descriptor = new ActionDescriptor()
             {
                 DisplayName = "controller",
-                AttributeRouteInfo = new AttributeRouteInfo() { Template = Routes.CodetabelProviderController }
+                AttributeRouteInfo = new AttributeRouteInfo() { Template = Routes.CodetableProviderController }
             };
 
             var actionDescriptors = new List<ActionDescriptor>();
             actionDescriptors.Add(descriptor);
 
-            var newRoute = "api/mijncodetabellen";
+            var newRoute = "api/mijncodetables";
 
-            var builder = new CodetabelDiscoveryRouteBuilder();
+            var builder = new CodetableDiscoveryRouteBuilder();
             builder.SetRoute(actionDescriptors, newRoute);
 
-            Assert.Equal("api/mijncodetabellen", descriptor.AttributeRouteInfo.Template);
+            Assert.Equal("api/mijncodetables", descriptor.AttributeRouteInfo.Template);
         }
     }
 }

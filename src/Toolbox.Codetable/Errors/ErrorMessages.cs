@@ -4,11 +4,11 @@ namespace Toolbox.Codetable.Errors
 {
     internal class ErrorMessages
     {
-        public const string MaxLengthVeld = "{0} mag niet langer zijn dan {1}.";
-        public const string MvcNietGeregistreerdGeenActionDescriptorsProvider = "De ActionDescriptorsProvider is nog niet geregistreerd. Wordt app.UseCodetabelDiscovery aangeroepen na app.UseMvc?";
-        public const string MvcNietGeregistreerdGeenControllers = "De controllers zijn nog niet geregistreerd. Wordt app.UseCodetabelDiscovery aangeroepen na app.UseMvc?";
-        public const string ProviderNietGeregistreerd = "De ICodetabelProvider is niet geregistreerd. Wordt 'services.AddCodetabelDiscovery' aangeroepen in de ConfigureServices method van de Startup class?";
-        public const string RouteBuilderNietGeregistreerd = "De ICodetabelDiscoveryRouteBuilder is niet geregistreerd. Wordt 'services.AddCodetabelDiscovery' aangeroepen in de ConfigureServices method van de Startup class?";
-        public const string VerplichtVeld = "{0} is verplicht.";
+        public const string MaxLengthField = "{0} cannot be longer than {1}.";
+        public const string MvcNotRegisteredNoActionsDescriptorProvider = "The ActionDescriptorsProvider is not yet registered. Does app.UseCodetableDiscovery get called after app.UseMvc?";
+        public const string MvcNotRegisteredNoControllers = "The controllers are not yet registered.  Does app.UseCodetableDiscovery get called after app.UseMvc?";
+        public const string ProviderNotRegistered = "The ICodetableProvider is not registered. Does 'services.AddCodetableDiscovery' get called in the ConfigureServices method of the Startup class?";
+        public const string RouteBuilderNotRegistered = "The ICodetableDiscoveryRouteBuilder is not registered. Does 'services.AddCodetableDiscovery' get called in the ConfigureServices method of the Startup class?";
+        public const string RequiredField = "{0} is required.";
     }
 }

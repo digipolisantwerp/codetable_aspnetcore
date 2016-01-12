@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace Toolbox.Codetable
 {
-    public interface ICodetabelProvider
+    public interface ICodetableProvider
     {
-        IEnumerable<CodetabelControllerInfo> Codetabellen { get; }
+        IEnumerable<CodetableControllerInfo> Codetables { get; }
 
         void Load(Assembly assembly);
     }

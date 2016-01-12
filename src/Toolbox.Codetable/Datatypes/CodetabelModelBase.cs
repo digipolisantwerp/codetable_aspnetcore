@@ -4,23 +4,23 @@ using Toolbox.Codetable.Errors;
 
 namespace Toolbox.Codetable.Models
 {
-    public class CodetabelModelBase
+    public class CodetableModelBase
     {
         public int Id { get; set; }
         
-        [Required(ErrorMessage = ErrorMessages.VerplichtVeld)]
-        [MaxLength(50, ErrorMessage = ErrorMessages.MaxLengthVeld)]
+        [Required(ErrorMessage = ErrorMessages.RequiredField)]
+        [MaxLength(50, ErrorMessage = ErrorMessages.MaxLengthField)]
         public string Code { get; set; }
 
-        [Required(ErrorMessage = ErrorMessages.VerplichtVeld)]
-        [MaxLength(250, ErrorMessage = ErrorMessages.MaxLengthVeld)]
-        public string Waarde { get; set; }
+        [Required(ErrorMessage = ErrorMessages.RequiredField)]
+        [MaxLength(250, ErrorMessage = ErrorMessages.MaxLengthField)]
+        public string Value { get; set; }
 
-        [MaxLength(250, ErrorMessage = ErrorMessages.MaxLengthVeld)]
-        public string Omschrijving { get; set; }
+        [MaxLength(250, ErrorMessage = ErrorMessages.MaxLengthField)]
+        public string Description { get; set; }
 
-        [Required(ErrorMessage = ErrorMessages.VerplichtVeld)]
-        public int Volgnummer { get; set; }
+        [Required(ErrorMessage = ErrorMessages.RequiredField)]
+        public int Serialnumber { get; set; }
 
         public bool Disabled { get; set; }
     }

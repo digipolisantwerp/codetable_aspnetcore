@@ -21,13 +21,13 @@ namespace Toolbox.Codetable.Controllers
 
         protected virtual IActionResult BadRequestResult(ModelStateDictionary modelState)
         {
-            // ToDo : moet dit gelogd worden ?
+            // ToDo : does this have to be logged ?
             return new BadRequestObjectResult(modelState);
         }
 
-        protected virtual IActionResult BadRequestResult(CodetabelBusinessValidationException validationEx)
+        protected virtual IActionResult BadRequestResult(CodetableBusinessValidationException validationEx)
         {
-            // ToDo : moet dit gelogd worden ?
+            // ToDo : does this have to be logged ?
             var modelState = new ModelStateDictionary();
             foreach (var message in validationEx.Error.Messages)
             {

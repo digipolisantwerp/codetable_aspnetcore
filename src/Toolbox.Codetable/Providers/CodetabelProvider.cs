@@ -8,47 +8,47 @@ using Microsoft.AspNet.Mvc;
 
 namespace Toolbox.Codetable.Internal
 {
-    public class CodetabelProvider : ICodetabelProvider
+    public class CodetableProvider : ICodetableProvider
     {
-        public CodetabelProvider(IValueBuilder valueBuilder)
+        public CodetableProvider(IValueBuilder valueBuilder)
         {
             ArgumentValidator.AssertNotNull(valueBuilder, nameof(valueBuilder));
             _valueBuilder = valueBuilder;
-            this.Codetabellen = new CodetabelControllerInfo[] { };
+            this.Codetables = new CodetableControllerInfo[] { };
         }
 
         private readonly IValueBuilder _valueBuilder;
 
-        public IEnumerable<CodetabelControllerInfo> Codetabellen { get; private set; }
+        public IEnumerable<CodetableControllerInfo> Codetables { get; private set; }
 
         public void Load(Assembly assembly)
         {
             ArgumentValidator.AssertNotNull(assembly, nameof(assembly));
 
-            var types = ReflectionHelper.GetTypesWithAttribute<CodetabelControllerAttribute>(assembly, true);
+            var types = ReflectionHelper.GetTypesWithAttribute<CodetableControllerAttribute>(assembly, true);
             if ( types.Count() == 0 )
-                this.Codetabellen = new CodetabelControllerInfo[] { };
+                this.Codetables = new CodetableControllerInfo[] { };
             else
-                this.Codetabellen = GetCodetabelInfoLijst(assembly, types);
+                this.Codetables = GetCodetableInfoLijst(assembly, types);
         }
 
-        private IEnumerable<CodetabelControllerInfo> GetCodetabelInfoLijst(Assembly assembly, IEnumerable<Type> types)
+        private IEnumerable<CodetableControllerInfo> GetCodetableInfoLijst(Assembly assembly, IEnumerable<Type> types)
         {
-            var lijst = new List<CodetabelControllerInfo>();
+            var lijst = new List<CodetableControllerInfo>();
             foreach ( var type in types )
             {
-                var naam = GetNaam(type);
+                var name = GetName(type);
                 var route = GetRoute(type);
-                lijst.Add(new CodetabelControllerInfo(naam, route));
+                lijst.Add(new CodetableControllerInfo(name, route));
             }
             return lijst.ToArray();
         }
 
-        private string GetNaam(Type type)
+        private string GetName(Type type)
         {
-            var codetabelAttrib = ReflectionHelper.GetAttributeFrom<CodetabelControllerAttribute>(type);
-            var naam = _valueBuilder.GetValueOrDefault(type.Name, codetabelAttrib.Naam);
-            return naam;
+            var codetableAttrib = ReflectionHelper.GetAttributeFrom<CodetableControllerAttribute>(type);
+            var name = _valueBuilder.GetValueOrDefault(type.Name, codetableAttrib.Name);
+            return name;
         }
 
         private string GetRoute(Type type)

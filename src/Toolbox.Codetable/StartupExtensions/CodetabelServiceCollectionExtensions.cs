@@ -14,14 +14,14 @@ using Toolbox.DataAccess.Options;
 
 namespace Toolbox.Codetable
 {
-    public static class CodetabelServiceCollectionExtensions
+    public static class CodetableServiceCollectionExtensions
     {
         /// <summary>
-        /// Configureert het CodetabelDiscovery framework.
+        /// Configures the CodetableDiscovery framework.
         /// </summary>
-        /// <param name="services">De IServiceCollection van de toepassing.</param>
-        /// <returns>De IServicesCollection van de toepassing.</returns>
-        public static IServiceCollection AddCodetabelDiscovery(this IServiceCollection services, CodetabelDiscoveryOptions options)
+        /// <param name="services">The IServiceCollection of the application.</param>
+        /// <returns>The IServiceCollection of the application.</returns>
+        public static IServiceCollection AddCodetableDiscovery(this IServiceCollection services, CodetableDiscoveryOptions options)
         {
             ArgumentValidator.AssertNotNull(options, nameof(options));
 
@@ -31,18 +31,18 @@ namespace Toolbox.Codetable
         }
 
 
-        private static void RegisterControllerDiscovery(IServiceCollection services, CodetabelDiscoveryOptions options)
+        private static void RegisterControllerDiscovery(IServiceCollection services, CodetableDiscoveryOptions options)
         {
 
             services.AddSingleton(typeof(IServiceCollection), (o) => { return services; });
 
             services.AddSingleton<IValueBuilder, ControllerValueBuilder>();      
-            services.AddSingleton<ICodetabelProvider, CodetabelProvider>();
-            services.AddSingleton<ICodetabelDiscoveryRouteBuilder, CodetabelDiscoveryRouteBuilder>();
+            services.AddSingleton<ICodetableProvider, CodetableProvider>();
+            services.AddSingleton<ICodetableDiscoveryRouteBuilder, CodetableDiscoveryRouteBuilder>();
             services.AddInstance(options);
 
-            services.AddTransient(typeof(ICodetabelWriter<>), typeof(CodeTabelWriter<>));
-            services.AddTransient(typeof(ICodetabelReader<>), typeof(CodetabelReader<>));
+            services.AddTransient(typeof(ICodetableWriter<>), typeof(CodeTabelWriter<>));
+            services.AddTransient(typeof(ICodetableReader<>), typeof(CodetableReader<>));
 
 
         }

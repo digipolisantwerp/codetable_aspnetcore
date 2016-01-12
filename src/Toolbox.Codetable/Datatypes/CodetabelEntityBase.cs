@@ -5,38 +5,38 @@ using Toolbox.DataAccess.Entities;
 namespace Toolbox.Codetable.Entities
 {
     /// <summary>
-    /// Base class voor codetabel entiteiten.
+    /// Base class for codetable entities
     /// </summary>
-    public class CodetabelEntityBase : EntityBase
+    public class CodetableEntityBase : EntityBase
     {
         /// <summary>
-        /// De code voor waarde in de codetabel (verplicht, max lengte = 50).
+        /// The code for values in the codetable (required, max length = 50).
         /// </summary>
         [Required]
         [MaxLength(50)]      
         public string Code { get; set; }
 
         /// <summary>
-        /// De waarde in de codetabel (verplicht, max lengte = 250).
+        /// De waarde in de codetable (required, max length = 250).
         /// </summary>
         [Required]
         [MaxLength(100)]
-        public string Waarde { get; set; }
+        public string Value { get; set; }
 
         /// <summary>
-        /// Een optionele extra omschrijving voor de waarde in de codetabel.
+        /// An optional extra description for the value in the codetable.
         /// </summary>
         [MaxLength(250)]
-        public string Omschrijving { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
-        /// Een volgnummer voor de waarde in de codetabel. Deze kan gebruikt worden om te sorteren (verplicht).
+        /// A Serial number for the value in the code table.  This can be used to sort (required).
         /// </summary>
         [Required]
-        public int Volgnummer { get; set; }
+        public int Serialnumber { get; set; }
 
         /// <summary>
-        /// Een optie om de waarde in de codetabel te disablen zodat ze bvb niet meer kan gekozen worden door de gebruiker (verplicht).
+        /// An option to disable the value in the codetable, so it cannot be chosen by users anymore for example (required).
         /// </summary>
         [Required]
         public bool Disabled { get; set; }

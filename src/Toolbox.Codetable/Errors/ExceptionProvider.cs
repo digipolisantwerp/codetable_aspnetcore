@@ -4,24 +4,24 @@ namespace Toolbox.Codetable.Errors
 {
     internal class ExceptionProvider
     {
-        public static Exception CodetabelProviderNietGeregistreerd()
+        public static Exception CodetableProviderNotRegistered()
         {
-            return new InvalidOperationException(ErrorMessages.ProviderNietGeregistreerd);
+            return new InvalidOperationException(ErrorMessages.ProviderNotRegistered);
         }
 
-        public static Exception RouteBuilderNietGeregistreerd()
+        public static Exception RouteBuilderNotRegistered()
         {
-            return new InvalidOperationException(ErrorMessages.RouteBuilderNietGeregistreerd);
+            return new InvalidOperationException(ErrorMessages.RouteBuilderNotRegistered);
         }
 
-        public static Exception MvcNietGeregistreerdGeenActionDescriptorsProvider()
+        public static Exception MvcNotRegisteredNoActionDescriptorsProvider()
         {
-            return new InvalidOperationException(ErrorMessages.MvcNietGeregistreerdGeenActionDescriptorsProvider);
+            return new InvalidOperationException(ErrorMessages.MvcNotRegisteredNoActionsDescriptorProvider);
         }
 
-        public static Exception MvcNietGeregistreerdGeenControllers()
+        public static Exception MvcNotRegisteredNoControllers()
         {
-            return new InvalidOperationException(ErrorMessages.MvcNietGeregistreerdGeenControllers);
+            return new InvalidOperationException(ErrorMessages.MvcNotRegisteredNoControllers);
         }
     }
 }

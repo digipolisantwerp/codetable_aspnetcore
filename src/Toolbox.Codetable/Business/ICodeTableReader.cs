@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Toolbox.Codetable.Business
 {
-    public interface ICodetabelReader<T>  where T : CodetabelEntityBase
+    public interface ICodetableReader<T>  where T : CodetableEntityBase
     {
         Task<IEnumerable<T>> GetAllAsync();
         IEnumerable<T> GetAll();

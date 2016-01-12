@@ -13,17 +13,17 @@ using Toolbox.DataAccess.Exceptions;
 
 namespace Toolbox.Codetable
 {
-    public class CodetabelControllerBase<TCodeTabelEntity, TCodeTabelModel> : ControllerBase
-        where TCodeTabelEntity : CodetabelEntityBase
-        where TCodeTabelModel : CodetabelModelBase
+    public class CodetableControllerBase<TCodeTabelEntity, TCodeTabelModel> : ControllerBase
+        where TCodeTabelEntity : CodetableEntityBase
+        where TCodeTabelModel : CodetableModelBase
     {
-        private readonly ICodetabelReader<TCodeTabelEntity> _reader;
-        private readonly ICodetabelWriter<TCodeTabelEntity> _writer;
+        private readonly ICodetableReader<TCodeTabelEntity> _reader;
+        private readonly ICodetableWriter<TCodeTabelEntity> _writer;
 
-        public CodetabelControllerBase(IServiceCollection service) : base(service.BuildServiceProvider().GetService<ILogger>())
+        public CodetableControllerBase(IServiceCollection service) : base(service.BuildServiceProvider().GetService<ILogger>())
         {
-            _reader = service.BuildServiceProvider().GetService<ICodetabelReader<TCodeTabelEntity>>();
-            _writer = service.BuildServiceProvider().GetService<ICodetabelWriter<TCodeTabelEntity>>();
+            _reader = service.BuildServiceProvider().GetService<ICodetableReader<TCodeTabelEntity>>();
+            _writer = service.BuildServiceProvider().GetService<ICodetableWriter<TCodeTabelEntity>>();
         }
 
         [HttpGet("{id:int}")]
@@ -31,15 +31,15 @@ namespace Toolbox.Codetable
         {
             try
             {
-                var codetabel = await _reader.GetAsync(id);
-                if (codetabel == null)
-                    return NotFoundResult($"Code met id {id} niet gevonden in {typeof(TCodeTabelModel).Name}.");
-                var model = Mapper.Map<TCodeTabelModel>(codetabel);
+                var codetable = await _reader.GetAsync(id);
+                if (codetable == null)
+                    return NotFoundResult($"Code with id {id} not found in {typeof(TCodeTabelModel).Name}.");
+                var model = Mapper.Map<TCodeTabelModel>(codetable);
                 return OkResult(model);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex, "Fout bij ophalen van {0} met id '{0}'", typeof(TCodeTabelModel).Name, id);
+                return InternalServerError(ex, "Error while loading {0} with id '{0}'", typeof(TCodeTabelModel).Name, id);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Toolbox.Codetable
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex, "Fout bij ophalen van {0}", typeof(TCodeTabelModel).Name);
+                return InternalServerError(ex, "Error while loading {0}", typeof(TCodeTabelModel).Name);
             }
         }
 
@@ -73,13 +73,13 @@ namespace Toolbox.Codetable
 
                 return Created($"{Request.Path.Value}/{insertedEntity.Id}", Mapper.Map<TCodeTabelModel>(insertedEntity));
             }
-            catch (CodetabelBusinessValidationException validationEx)
+            catch (CodetableBusinessValidationException validationEx)
             {
                 return BadRequestResult(validationEx);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex, "Fout bij inserten van {0}", typeof(TCodeTabelModel).Name);
+                return InternalServerError(ex, "Error while inserting {0}", typeof(TCodeTabelModel).Name);
             }
         }
 
@@ -91,8 +91,8 @@ namespace Toolbox.Codetable
 
             try
             {
-                if (model == null) throw new CodetabelBusinessValidationException("model not provided");
-                if (id != model.Id) throw new CodetabelBusinessValidationException("id does not match model id");
+                if (model == null) throw new CodetableBusinessValidationException("model not provided");
+                if (id != model.Id) throw new CodetableBusinessValidationException("id does not match model id");
 
                 var entity = Mapper.Map<TCodeTabelEntity>(model);
                 await _writer.UpdateAsync(entity);
@@ -100,15 +100,15 @@ namespace Toolbox.Codetable
             }
             catch (EntityNotFoundException)
             {
-                return NotFoundResult("Geen evenement gevonden met id {0}", id);
+                return NotFoundResult("No event found with id {0}", id);
             }
-            catch (CodetabelBusinessValidationException validationEx)
+            catch (CodetableBusinessValidationException validationEx)
             {
                 return BadRequestResult(validationEx);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex, "Fout bij updaten van {0}", typeof(TCodeTabelModel).Name);
+                return InternalServerError(ex, "Error while updating {0}", typeof(TCodeTabelModel).Name);
             }
         }
 
@@ -122,15 +122,15 @@ namespace Toolbox.Codetable
             }
             catch (EntityNotFoundException)
             {
-                return NotFoundResult("Geen evenement gevonden met id {0}", id);
+                return NotFoundResult("No event found with id {0}", id);
             }
-            catch (CodetabelBusinessValidationException validationEx)
+            catch (CodetableBusinessValidationException validationEx)
             {
                 return BadRequestResult(validationEx);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex, "Fout bij deleten van {0}", typeof(TCodeTabelModel).Name);
+                return InternalServerError(ex, "Error while deleting {0}", typeof(TCodeTabelModel).Name);
             }
         }
     }

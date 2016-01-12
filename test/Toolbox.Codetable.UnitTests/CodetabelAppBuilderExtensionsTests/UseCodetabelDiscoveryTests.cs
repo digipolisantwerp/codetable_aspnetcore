@@ -13,33 +13,33 @@ using Microsoft.AspNet.Mvc.Infrastructure;
 using Microsoft.AspNet.Mvc.Abstractions;
 using Microsoft.AspNet.Builder.Internal;
 
-namespace Toolbox.Codetable.UnitTests.CodetabelAppBuilderExtensionsTests
+namespace Toolbox.Codetable.UnitTests.CodetableAppBuilderExtensionsTests
 {
-    public class UseCodetabelDiscoveryTests
+    public class UseCodetableDiscoveryTests
     {
         [Fact]
         private void OptionsNullRaisesArgumentNullException()
         {
             IServiceCollection services = new ServiceCollection();
-            var ex = Assert.Throws<ArgumentNullException>(() => services.AddCodetabelDiscovery(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => services.AddCodetableDiscovery(null));
             Assert.Equal("options", ex.ParamName);
         }
 
 
         [Fact]
-        private void CodetabellenWordenGeladen()
+        private void CodetablesWordenGeladen()
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            var codetabelProvider = new Mock<ICodetabelProvider>();
-            codetabelProvider.Setup(ctp => ctp.Load(assembly)).Verifiable();
+            var codetableProvider = new Mock<ICodetableProvider>();
+            codetableProvider.Setup(ctp => ctp.Load(assembly)).Verifiable();
 
-            var serviceProvider = MockServiceProvider(codetabelProvider: codetabelProvider.Object, option:new CodetabelDiscoveryOptions(assembly));
+            var serviceProvider = MockServiceProvider(codetableProvider: codetableProvider.Object, option:new CodetableDiscoveryOptions(assembly));
 
             var appBuilder = new ApplicationBuilder(serviceProvider);
-            appBuilder.UseCodetabelDiscovery();
+            appBuilder.UseCodetableDiscovery();
 
-            codetabelProvider.Verify();
+            codetableProvider.Verify();
         }
 
         [Fact]
@@ -47,28 +47,28 @@ namespace Toolbox.Codetable.UnitTests.CodetabelAppBuilderExtensionsTests
         {
             var callingAssembly = Assembly.GetExecutingAssembly();      // Voor de toolbox is de calling assembly de executing assembly van deze test
 
-            var codetabelProvider = new Mock<ICodetabelProvider>();
-            codetabelProvider.Setup(ctp => ctp.Load(callingAssembly)).Verifiable();
+            var codetableProvider = new Mock<ICodetableProvider>();
+            codetableProvider.Setup(ctp => ctp.Load(callingAssembly)).Verifiable();
 
-            var serviceProvider = MockServiceProvider(codetabelProvider: codetabelProvider.Object, option: new CodetabelDiscoveryOptions(null));
+            var serviceProvider = MockServiceProvider(codetableProvider: codetableProvider.Object, option: new CodetableDiscoveryOptions(null));
 
             var appBuilder = new ApplicationBuilder(serviceProvider);
-            appBuilder.UseCodetabelDiscovery();
+            appBuilder.UseCodetableDiscovery();
 
-            codetabelProvider.Verify();
+            codetableProvider.Verify();
         }
 
-        private IServiceProvider MockServiceProvider(ICodetabelProvider codetabelProvider = null, ICodetabelDiscoveryRouteBuilder routeBuilder = null, CodetabelDiscoveryOptions option = null)
+        private IServiceProvider MockServiceProvider(ICodetableProvider codetableProvider = null, ICodetableDiscoveryRouteBuilder routeBuilder = null, CodetableDiscoveryOptions option = null)
         {
-            var provider = codetabelProvider == null ? Mock.Of<ICodetabelProvider>() : codetabelProvider;
-            var builder = routeBuilder == null ? Mock.Of<ICodetabelDiscoveryRouteBuilder>() : routeBuilder;
+            var provider = codetableProvider == null ? Mock.Of<ICodetableProvider>() : codetableProvider;
+            var builder = routeBuilder == null ? Mock.Of<ICodetableDiscoveryRouteBuilder>() : routeBuilder;
             var actionDescriptorsProvider = MockActionDescriptorsProvider();
             
             var serviceProvider = new Mock<IServiceProvider>();
-            serviceProvider.Setup(svp => svp.GetService(typeof(ICodetabelProvider))).Returns(provider);
-            serviceProvider.Setup(svp => svp.GetService(typeof(ICodetabelDiscoveryRouteBuilder))).Returns(builder);
+            serviceProvider.Setup(svp => svp.GetService(typeof(ICodetableProvider))).Returns(provider);
+            serviceProvider.Setup(svp => svp.GetService(typeof(ICodetableDiscoveryRouteBuilder))).Returns(builder);
             serviceProvider.Setup(svp => svp.GetService(typeof(IActionDescriptorsCollectionProvider))).Returns(actionDescriptorsProvider);
-            serviceProvider.Setup(svp => svp.GetService(typeof(CodetabelDiscoveryOptions))).Returns(option);
+            serviceProvider.Setup(svp => svp.GetService(typeof(CodetableDiscoveryOptions))).Returns(option);
             
 
             return serviceProvider.Object;
@@ -82,13 +82,13 @@ namespace Toolbox.Codetable.UnitTests.CodetabelAppBuilderExtensionsTests
                 {
                     AttributeRouteInfo = new AttributeRouteInfo()
                     {
-                        Template = "admin/codetabel"
+                        Template = "admin/codetable"
                     },
                     RouteConstraints = new List<RouteDataActionConstraint>()
                     {
                         new RouteDataActionConstraint(AttributeRouting.RouteGroupKey, "1"),
                     },
-                    DisplayName = "Toolbox.Codetable.codetabelprovidercontroller"
+                    DisplayName = "Toolbox.Codetable.codetableprovidercontroller"
                 },
                 new ActionDescriptor()
                 {

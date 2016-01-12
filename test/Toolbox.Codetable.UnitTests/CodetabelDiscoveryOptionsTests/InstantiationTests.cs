@@ -2,7 +2,7 @@
 using System.Reflection;
 using Xunit;
 
-namespace Toolbox.Codetable.UnitTests.CodetabelDiscoveryOptionsTests
+namespace Toolbox.Codetable.UnitTests.CodetableDiscoveryOptionsTests
 {
     public class Startup
     { }
@@ -12,14 +12,14 @@ namespace Toolbox.Codetable.UnitTests.CodetabelDiscoveryOptionsTests
         [Fact]
         private void DefaultRouteIsSet()
         {
-            var options = new CodetabelDiscoveryOptions();
-            Assert.Equal(Routes.CodetabelProviderController, options.Route);
+            var options = new CodetableDiscoveryOptions();
+            Assert.Equal(Routes.CodetableProviderController, options.Route);
         }
 
         [Fact]
         private void DefaultControllerAssemblyIsSet()
         {
-            var options = new CodetabelDiscoveryOptions();
+            var options = new CodetableDiscoveryOptions();
             Assert.NotNull(options.ControllerAssembly);
         }
 
@@ -27,9 +27,9 @@ namespace Toolbox.Codetable.UnitTests.CodetabelDiscoveryOptionsTests
         private void DefaultInstantiatesObjectWithDefaults()
         {
             var callingAssembly = Assembly.GetCallingAssembly();
-            var options = CodetabelDiscoveryOptions.Default;
+            var options = CodetableDiscoveryOptions.Default;
             Assert.NotNull(options);
-            Assert.Equal(Routes.CodetabelProviderController, options.Route);
+            Assert.Equal(Routes.CodetableProviderController, options.Route);
             Assert.NotNull(options.ControllerAssembly);
         }
 
@@ -37,7 +37,7 @@ namespace Toolbox.Codetable.UnitTests.CodetabelDiscoveryOptionsTests
         private void ControllerAssemblyIsSet()
         {
             var executingAssembly = Assembly.GetExecutingAssembly();
-            var options = new CodetabelDiscoveryOptions(executingAssembly);
+            var options = new CodetableDiscoveryOptions(executingAssembly);
             Assert.Same(executingAssembly, options.ControllerAssembly);
         }
     }

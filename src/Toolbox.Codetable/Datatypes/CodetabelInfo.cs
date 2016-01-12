@@ -2,15 +2,15 @@
 
 namespace Toolbox.Codetable
 {
-    public class CodetabelInfo
+    public class CodetableInfo
     {
         /// <summary>
-        /// De naam van de codetabel.
+        /// The name of the codetable.
         /// </summary>
-        public string Naam { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// De route waar de codetabel via de api kan aangesproken worden.
+        /// De route where the codetable can be requested via the api.
         /// </summary>
         public string Route { get; set; }
     }

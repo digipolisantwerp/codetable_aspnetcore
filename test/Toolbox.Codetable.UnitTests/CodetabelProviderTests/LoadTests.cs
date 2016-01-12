@@ -6,41 +6,41 @@ using Toolbox.Codetable.Internal;
 using Microsoft.AspNet.Mvc;
 using Xunit;
 
-namespace Toolbox.Codetable.UnitTests.CodetabelProviderTests
+namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
 {
-    [CodetabelController]
-    public class CodetabelTest1Controller
+    [CodetableController]
+    public class CodetableTest1Controller
     { }
 
-    [CodetabelController("MijnCodetabel")]
-    public class CodetabelTest2Controller
+    [CodetableController("MijnCodetable")]
+    public class CodetableTest2Controller
     { }
 
     [Route("MijnRoute")]
-    [CodetabelController]
-    public class CodetabelTest3Controller
+    [CodetableController]
+    public class CodetableTest3Controller
     { }
 
     public class LoadTests
     {
         [Fact]
-        private void ZetCodetabellenProperty()
+        private void ZetCodetablesProperty()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetabelProvider(valueBuilder);
+            var provider = new CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
 
-            Assert.NotNull(provider.Codetabellen);
-            Assert.Equal(3, provider.Codetabellen.Count());
+            Assert.NotNull(provider.Codetables);
+            Assert.Equal(3, provider.Codetables.Count());
         }
 
         [Fact]
         private void AssemblyNullRaisesArgumentNullException()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetabelProvider(valueBuilder);
+            var provider = new CodetableProvider(valueBuilder);
 
             var ex = Assert.Throws<ArgumentNullException>(() => provider.Load(null));
 
@@ -51,61 +51,61 @@ namespace Toolbox.Codetable.UnitTests.CodetabelProviderTests
         private void DefaultClassNameVoorNaam()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetabelProvider(valueBuilder);
+            var provider = new CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
 
-            Assert.Single(provider.Codetabellen, (ct) => ct.Naam == "CodetabelTest1");
+            Assert.Single(provider.Codetables, (ct) => ct.Name == "CodetableTest1");
         }
 
         [Fact]
         private void DefaultClassNameVoorRoute()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetabelProvider(valueBuilder);
+            var provider = new CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
 
-            Assert.Single(provider.Codetabellen, (ct) => ct.Route == "CodetabelTest1");
+            Assert.Single(provider.Codetables, (ct) => ct.Route == "CodetableTest1");
         }
 
         [Fact]
-        private void CodetabelControllerAttributeNaamVoorNaam()
+        private void CodetableControllerAttributeNaamVoorNaam()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetabelProvider(valueBuilder);
+            var provider = new CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
 
-            Assert.Single(provider.Codetabellen, (ct) => ct.Route == "MijnRoute");
+            Assert.Single(provider.Codetables, (ct) => ct.Route == "MijnRoute");
         }
 
         [Fact]
         private void RouteAttributeTemplateVoorRoute()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetabelProvider(valueBuilder);
+            var provider = new CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
 
-            Assert.Single(provider.Codetabellen, (ct) => ct.Route == "MijnRoute");
+            Assert.Single(provider.Codetables, (ct) => ct.Route == "MijnRoute");
         }
 
         [Fact]
-        private void LegeCodetabellenPropertyAlsGeenCodetabellenInAssembly()
+        private void LegeCodetablesPropertyAlsGeenCodetablesInAssembly()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetabelProvider(valueBuilder);
+            var provider = new CodetableProvider(valueBuilder);
 
             var callingAssembly = Assembly.GetCallingAssembly();
             provider.Load(callingAssembly);
 
-            Assert.NotNull(provider.Codetabellen);
-            Assert.Equal(0, provider.Codetabellen.Count());
+            Assert.NotNull(provider.Codetables);
+            Assert.Equal(0, provider.Codetables.Count());
         }
     }
 }

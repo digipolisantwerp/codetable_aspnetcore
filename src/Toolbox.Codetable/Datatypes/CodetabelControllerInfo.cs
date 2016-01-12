@@ -3,23 +3,23 @@ using Toolbox.Common.Validation;
 
 namespace Toolbox.Codetable
 {
-    public class CodetabelControllerInfo
+    public class CodetableControllerInfo
     {
-        public CodetabelControllerInfo(string naam, string route)
+        public CodetableControllerInfo(string name, string route)
         {
-            ArgumentValidator.AssertNotNullOrWhiteSpace(naam, nameof(naam));
+            ArgumentValidator.AssertNotNullOrWhiteSpace(name, nameof(name));
             ArgumentValidator.AssertNotNullOrWhiteSpace(route, nameof(route));
-            this.Naam = naam;
+            this.Name = name;
             this.Route = route;
         }
 
         /// <summary>
-        /// De naam van de codetabel.
+        /// The name of the codetable.
         /// </summary>
-        public string Naam { get; private set; }
+        public string Name { get; private set; }
 
         /// <summary>
-        /// De route waarop de codetabel via de api publiek is gemaakt.
+        /// The route where codetable is exposed via the api.
         /// </summary>
         public string Route { get; private set; }
     }
