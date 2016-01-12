@@ -20,7 +20,7 @@ namespace Toolbox.Codetable.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = ErrorMessages.RequiredField)]
-        public int Serialnumber { get; set; }
+        public int Sortindex { get; set; }
 
         public bool Disabled { get; set; }
     }

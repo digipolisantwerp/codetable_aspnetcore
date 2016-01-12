@@ -22,7 +22,7 @@ namespace Toolbox.Codetable.Business
         protected readonly ILogger _logger;
         protected readonly IUowProvider _uowProvider;
 
-        protected OrderBy<T> Ordering => new OrderBy<T>(query => query.OrderBy(a => a.Serialnumber));
+        protected OrderBy<T> Ordering => new OrderBy<T>(query => query.OrderBy(a => a.Sortindex));
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {

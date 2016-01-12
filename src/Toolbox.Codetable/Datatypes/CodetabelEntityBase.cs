@@ -33,7 +33,7 @@ namespace Toolbox.Codetable.Entities
         /// A Serial number for the value in the code table.  This can be used to sort (required).
         /// </summary>
         [Required]
-        public int Serialnumber { get; set; }
+        public int Sortindex { get; set; }
 
         /// <summary>
         /// An option to disable the value in the codetable, so it cannot be chosen by users anymore for example (required).
