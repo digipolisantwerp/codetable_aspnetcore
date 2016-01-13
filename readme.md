@@ -1,9 +1,29 @@
-﻿# Codetable Toolbox
+# Codetable Toolbox
 
 The Codetable Toolbox offers following functionalities for ASP.NET 5 Web Api projects :
 
 - Generic base classes to deal with code tables in a uniform way.
 - Create a codetable discovery framework that adds an endpoint on which the list of Codetables can be retrieved.
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+  - [Installation](#installation)
+    - [Setup Codetable Discovery Framework](#setup-codetable-discovery-framework)
+    - [Installation of DataAccess](#installation-of-dataaccess)
+  - [Base Classes](#base-classes)
+    - [CodetableEntityBase](#codetableentitybase)
+    - [CodetableModelBase](#codetablemodelbase)
+    - [CodetableControllerBase](#codetablecontrollerbase)
+    - [CodetableControllerAttribute](#codetablecontrollerattribute)
+    - [CodetableInfo](#codetableinfo)
+    - [ICodetableProvider](#icodetableprovider)
+- [Versions](#versions)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Installation
 Adding the toolbox to a project can be done via the NuGet Package Manager in Visual Studio or by adding the package to the project.json :
