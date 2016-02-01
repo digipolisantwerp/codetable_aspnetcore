@@ -31,7 +31,7 @@ Adding the toolbox to a project can be done via the NuGet Package Manager in Vis
 ``` json
  "dependencies": {
     ...,
-    "Toolbox.Codetable":  "1.1.4",
+    "Toolbox.Codetable":  "1.1.5",
     ...
  }
 ```
