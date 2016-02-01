@@ -5,11 +5,9 @@ using Microsoft.Extensions.Logging;
 using Toolbox.Codetable.Business;
 using Toolbox.Codetable.Models;
 using Toolbox.Common.Helpers;
-using Toolbox.WebApi.QueryString;
 
 namespace Toolbox.Codetable.Controllers
 {
-    [EnableQueryStringMapping()]
     public abstract class ControllerBase : Controller
     {
         protected ControllerBase(ILogger logger)
