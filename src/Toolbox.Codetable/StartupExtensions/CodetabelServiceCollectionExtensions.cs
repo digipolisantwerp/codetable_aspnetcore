@@ -20,18 +20,20 @@ namespace Toolbox.Codetable
         /// Configures the CodetableDiscovery framework.
         /// </summary>
         /// <param name="services">The IServiceCollection of the application.</param>
-        /// <returns>The IServiceCollection of the application.</returns>
-        public static IServiceCollection AddCodetableDiscovery(this IServiceCollection services, CodetableDiscoveryOptions options)
+        /// <param name="setupAction">The action to perform setup on the CodetableDiscoveryOptions object.</param>
+        /// <returns></returns>
+        public static IServiceCollection AddCodetableDiscovery(this IServiceCollection services, Action<CodetableDiscoveryOptions> setupAction = null)
         {
-            ArgumentValidator.AssertNotNull(options, nameof(options));
+            if (setupAction == null)
+                setupAction = options => { };
 
-            RegisterControllerDiscovery(services, options);
+            RegisterControllerDiscovery(services, setupAction);
             
             return services;
         }
 
 
-        private static void RegisterControllerDiscovery(IServiceCollection services, CodetableDiscoveryOptions options)
+        private static void RegisterControllerDiscovery(IServiceCollection services, Action<CodetableDiscoveryOptions> setupAction)
         {
 
             services.AddSingleton(typeof(IServiceCollection), (o) => { return services; });
@@ -39,12 +41,11 @@ namespace Toolbox.Codetable
             services.AddSingleton<IValueBuilder, ControllerValueBuilder>();      
             services.AddSingleton<ICodetableProvider, CodetableProvider>();
             services.AddSingleton<ICodetableDiscoveryRouteBuilder, CodetableDiscoveryRouteBuilder>();
-            services.AddInstance(options);
+
+            services.Configure(setupAction);
 
             services.AddTransient(typeof(ICodetableWriter<>), typeof(CodeTabelWriter<>));
             services.AddTransient(typeof(ICodetableReader<>), typeof(CodetableReader<>));
-
-
         }
 
 

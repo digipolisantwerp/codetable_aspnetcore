@@ -1,5 +1,5 @@
 {
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Framework for automatic discovery of codetables.",
   "authors": [ "digipolis.be" ],
   "tags": [ "" ],
@@ -12,7 +12,7 @@
     "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.ViewFeatures": "6.0.0-rc1-final",
     "AutoMapper": "3.3.0",
-    "Toolbox.DataAccess": "1.4.0",
+    "Toolbox.DataAccess": "1.6.0",
     "Microsoft.AspNet.Mvc.Abstractions": "6.0.0-rc1-final"
   },
   "frameworks": {

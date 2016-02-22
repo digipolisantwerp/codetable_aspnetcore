@@ -20,7 +20,7 @@ namespace Toolbox.Codetable
         private readonly ICodetableReader<TCodeTabelEntity> _reader;
         private readonly ICodetableWriter<TCodeTabelEntity> _writer;
 
-        public CodetableControllerBase(IServiceCollection service) : base(service.BuildServiceProvider().GetService<ILogger>())
+        public CodetableControllerBase(IServiceCollection service, ILogger<Controller> logger) : base(logger)
         {
             _reader = service.BuildServiceProvider().GetService<ICodetableReader<TCodeTabelEntity>>();
             _writer = service.BuildServiceProvider().GetService<ICodetableWriter<TCodeTabelEntity>>();

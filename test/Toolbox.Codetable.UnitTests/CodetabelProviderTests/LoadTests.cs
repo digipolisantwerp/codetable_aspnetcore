@@ -27,7 +27,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         private void ZetCodetablesProperty()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
@@ -40,7 +40,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         private void AssemblyNullRaisesArgumentNullException()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
 
             var ex = Assert.Throws<ArgumentNullException>(() => provider.Load(null));
 
@@ -51,7 +51,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         private void DefaultClassNameVoorNaam()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
@@ -63,7 +63,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         private void DefaultClassNameVoorRoute()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
@@ -75,7 +75,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         private void CodetableControllerAttributeNaamVoorNaam()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
@@ -87,7 +87,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         private void RouteAttributeTemplateVoorRoute()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             provider.Load(currentAssembly);
@@ -99,7 +99,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         private void LegeCodetablesPropertyAlsGeenCodetablesInAssembly()
         {
             var valueBuilder = new ControllerValueBuilder();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
 
             var callingAssembly = Assembly.GetCallingAssembly();
             provider.Load(callingAssembly);

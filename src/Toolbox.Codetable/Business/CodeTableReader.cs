@@ -13,7 +13,7 @@ namespace Toolbox.Codetable.Business
 {
     public class CodetableReader<T> : ICodetableReader<T> where T : CodetableEntityBase
     {
-        public CodetableReader(ILogger logger, IUowProvider uowProvider)
+        public CodetableReader(ILogger<T> logger, IUowProvider uowProvider)
         {
             _logger = logger;
             _uowProvider = uowProvider;
@@ -28,7 +28,7 @@ namespace Toolbox.Codetable.Business
         {
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                var repository = uow.GetRepository<IRepository<T>>();
+                var repository = uow.GetRepository<T>();
                 return await repository.GetAllAsync(orderBy: Ordering.Expression);
             }
         }
@@ -37,7 +37,7 @@ namespace Toolbox.Codetable.Business
         {
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                var repository = uow.GetRepository<IRepository<T>>();
+                var repository = uow.GetRepository<T>();
                 return repository.GetAll(orderBy: Ordering.Expression);
             }
         }
@@ -46,7 +46,7 @@ namespace Toolbox.Codetable.Business
         {
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                var repository = uow.GetRepository<IRepository<T>>();
+                var repository = uow.GetRepository<T>();
                 return repository.Get(id);
             }
         }
@@ -55,7 +55,7 @@ namespace Toolbox.Codetable.Business
         {
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                var repository = uow.GetRepository<IRepository<T>>();
+                var repository = uow.GetRepository<T>();
                 return await repository.GetAsync(id);
             }
         }
@@ -64,7 +64,7 @@ namespace Toolbox.Codetable.Business
         {
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                var repository = uow.GetRepository<IRepository<T>>();
+                var repository = uow.GetRepository<T>();
                 return repository.Query(x => x.Code.ToLower() == code.ToLower()).FirstOrDefault();
             }
         }
@@ -73,7 +73,7 @@ namespace Toolbox.Codetable.Business
         {
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                var repository = uow.GetRepository<IRepository<T>>();
+                var repository = uow.GetRepository<T>();
                 var qryResults = await repository.QueryAsync(x => x.Code.ToLower() == code.ToLower());
                 return qryResults.FirstOrDefault();
             }

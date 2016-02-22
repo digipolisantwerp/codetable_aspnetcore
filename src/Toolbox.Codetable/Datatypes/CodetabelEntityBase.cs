@@ -17,14 +17,14 @@ namespace Toolbox.Codetable.Entities
         public string Code { get; set; }
 
         /// <summary>
-        /// De waarde in de codetable (required, max length = 250).
+        /// De waarde in de codetable (required, max length = 100).
         /// </summary>
         [Required]
         [MaxLength(100)]
         public string Value { get; set; }
 
         /// <summary>
-        /// An optional extra description for the value in the codetable.
+        /// An optional extra description for the value in the codetable (max length = 250).
         /// </summary>
         [MaxLength(250)]
         public string Description { get; set; }
@@ -40,5 +40,10 @@ namespace Toolbox.Codetable.Entities
         /// </summary>
         [Required]
         public bool Disabled { get; set; }
+
+        public override string ToString()
+        {
+            return Value;
+        }
     }
 }

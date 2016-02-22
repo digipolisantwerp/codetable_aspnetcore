@@ -10,12 +10,12 @@ namespace Toolbox.Codetable.Controllers
 {
     public abstract class ControllerBase : Controller
     {
-        protected ControllerBase(ILogger logger)
+        protected ControllerBase(ILogger<Controller> logger)
         {
             this.Logger = logger;
         }
 
-        protected ILogger Logger { get; private set; }
+        protected ILogger<Controller> Logger { get; private set; }
 
         protected virtual IActionResult BadRequestResult(ModelStateDictionary modelState)
         {

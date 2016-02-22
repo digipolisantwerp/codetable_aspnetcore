@@ -12,7 +12,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         public void CodetablesPropertyIsDefaultLegeLijst()
         {
             var valueBuilder = Mock.Of<IValueBuilder>();
-            var provider = new CodetableProvider(valueBuilder);
+            var provider = new Internal.CodetableProvider(valueBuilder);
             Assert.NotNull(provider.Codetables);
             Assert.Equal(0, provider.Codetables.Count());
         }
@@ -21,7 +21,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableProviderTests
         public void ValueBuilderNullRaisesArgumentNullException()
         {
             IValueBuilder nullValueBuilder = null;
-            var ex = Assert.Throws<ArgumentNullException>(() => new CodetableProvider(nullValueBuilder));
+            var ex = Assert.Throws<ArgumentNullException>(() => new Internal.CodetableProvider(nullValueBuilder));
             Assert.Equal("valueBuilder", ex.ParamName);
         }
     }

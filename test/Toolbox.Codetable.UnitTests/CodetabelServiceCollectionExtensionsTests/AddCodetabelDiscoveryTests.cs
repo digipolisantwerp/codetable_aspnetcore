@@ -13,7 +13,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableServiceCollectionExtensionsTests
         private void ControllerCodetableProviderIsGeregistreerd()
         {
             var services = new ServiceCollection();
-            services.AddCodetableDiscovery(new CodetableDiscoveryOptions());
+            services.AddCodetableDiscovery(options => { });
 
             var registrations = services.Where(sd => sd.ServiceType == typeof(ICodetableProvider) 
                                                && sd.ImplementationType == typeof(CodetableProvider))
@@ -25,7 +25,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableServiceCollectionExtensionsTests
         private void ControllerValueBuilderIsGeregistreerd()
         {
             var services = new ServiceCollection();
-            services.AddCodetableDiscovery(new CodetableDiscoveryOptions());
+            services.AddCodetableDiscovery(optiont => { });
 
             var registrations = services.Where(sd => sd.ServiceType == typeof(IValueBuilder)
                                                && sd.ImplementationType == typeof(ControllerValueBuilder))
@@ -37,7 +37,7 @@ namespace Toolbox.Codetable.UnitTests.CodetableServiceCollectionExtensionsTests
         private void CodetableDiscoveryRouteBuilderIsGeregistreerd()
         {
             var services = new ServiceCollection();
-            services.AddCodetableDiscovery(new CodetableDiscoveryOptions());
+            services.AddCodetableDiscovery(optiont => { });
 
             var registrations = services.Where(sd => sd.ServiceType == typeof(ICodetableDiscoveryRouteBuilder)
                                                && sd.ImplementationType == typeof(CodetableDiscoveryRouteBuilder))

@@ -31,7 +31,7 @@ Adding the toolbox to a project can be done via the NuGet Package Manager in Vis
 ``` json
  "dependencies": {
     ...,
-    "Toolbox.Codetable":  "1.1.5",
+    "Toolbox.Codetable":  "1.2.0",
     ...
  }
 ```
@@ -43,20 +43,19 @@ This endpoint can be used for example to make the list of codetables available t
 
 The framework is added to an ASP.NET project in the **_Startup_** class. First the necessary services are configured in the Configure Services Startup method of the class :
 
+If you are satisfied with the default options, there is no need to pass an argment:
+
 ``` csharp
-  services.AddCodetableDiscovery();
+   services.AddCodetableDiscovery();
 ```
 
-In the Configure method of the startup class, the framework is launched and you can pass options as an argument. If you are satisfied with the default options, simply pass **_CodetableDiscoveryOptions.Default_** :
+Passing deviating options can be done by using the CodetableDiscoveryOptions argument passed into the setup action :
 
 ``` csharp
-   app.UseCodetableDiscovery(CodetableDiscoveryOptions.Default);
-```
-
-Passing deviating options can be done by instantiating a new Code Table Discovery Options object and fill in the necessary properties :
-
-``` csharp
-   app.UseCodetableDiscovery(new CodetableDiscoveryOptions() { Route = "api/myCodetables" });
+   app.UseCodetableDiscovery(options => 
+   {
+       options.Route = "custom/codetables";
+   });
 ```
 
 Following options can be set :
@@ -66,6 +65,12 @@ Option              | Description                                               
 Route              | the url where the list of codetables can be requested | admin/Codetable
 ControllerAssembly | the assembly in which the codetable controllers can be searched | the assembly that contains the Startup class  
 
+
+In the Configure method of the startup class, the framework is launched.
+
+``` csharp
+   app.UseCodetableDiscovery();
+```
 
 ### Installation of DataAccess
 This toolbox has a dependency on the Toolbox.DataAccess package which must also be set in the startup.
@@ -180,3 +185,4 @@ Versie | Author                                  | Description
 1.0.12 | Steven Vanden Broeck                    | Initiële versie. CodetableDiscovery en base classes.
 1.1.1  | Sven Noreillie				 | Uitwerking ControllerBase, Generic readers & writers, Access naar database
 1.1.2  | Koen Stroobants				 | Translation to English
+1.2.0  | Jimmy Hannon				 | Changed the options configuration model and added a test/sample project

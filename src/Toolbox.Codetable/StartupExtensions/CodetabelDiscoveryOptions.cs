@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Toolbox.Common.Helpers;
@@ -7,12 +8,9 @@ namespace Toolbox.Codetable
 {
     public class CodetableDiscoveryOptions
     {
-        public CodetableDiscoveryOptions(Assembly controllerAssembly = null)
+        public CodetableDiscoveryOptions()
         {
-            if ( controllerAssembly == null )
-                ControllerAssembly = FindControllerAssembly();
-            else
-                ControllerAssembly = controllerAssembly;
+            ControllerAssembly = FindControllerAssembly();
             this.Route = Routes.CodetableProviderController;
         }
 
@@ -24,7 +22,7 @@ namespace Toolbox.Codetable
         /// <summary>
         /// The assembly where the codetable controllers are defined (default = the assembly where the Startup class is found).
         /// </summary>
-        public Assembly ControllerAssembly { get; private set; }
+        public Assembly ControllerAssembly { get;  set; }
 
         /// <summary>
         /// Default Route = 'admin/codetable' and default Assembly is the one where the Startup class is in.

@@ -11,7 +11,7 @@ namespace Toolbox.Codetable.Business
 {
     public class CodeTabelWriter<T> : ICodetableWriter<T> where T : CodetableEntityBase
     {
-        public CodeTabelWriter(ILogger logger, IUowProvider uowProvider)
+        public CodeTabelWriter(ILogger<T> logger, IUowProvider uowProvider)
         {
             _logger = logger;
             _uowProvider = uowProvider;
@@ -24,11 +24,9 @@ namespace Toolbox.Codetable.Business
         {
             if (entity == null) throw new ArgumentException("No codetable provided", nameof(entity));
 
-
-
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                IRepository<T> repo = uow.GetRepository<IRepository<T>>();
+                IRepository<T> repo = uow.GetRepository<T>();
                 repo.Add(entity);
                 await uow.SaveChangesAsync();
                 return entity;
@@ -41,7 +39,7 @@ namespace Toolbox.Codetable.Business
 
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                IRepository<T> repo = uow.GetRepository<IRepository<T>>();
+                IRepository<T> repo = uow.GetRepository<T>();
                 repo.Update(entity);
                 await uow.SaveChangesAsync();
             }
@@ -51,7 +49,7 @@ namespace Toolbox.Codetable.Business
         {
             using (var uow = _uowProvider.CreateUnitOfWork(false))
             {
-                IRepository<T> repo = uow.GetRepository<IRepository<T>>();
+                IRepository<T> repo = uow.GetRepository<T>();
                 var entity = await repo.GetAsync(id);
                 if (entity == null) throw new EntityNotFoundException(typeof(T).Name, id);
                 repo.Remove(entity);

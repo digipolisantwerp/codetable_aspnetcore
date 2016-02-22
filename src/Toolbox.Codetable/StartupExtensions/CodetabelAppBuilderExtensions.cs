@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Data.Entity;
 using Microsoft.AspNet.Mvc.Abstractions;
 using Microsoft.AspNet.Mvc.Infrastructure;
+using Microsoft.Extensions.OptionsModel;
+using Microsoft.AspNet.Routing;
+using Microsoft.AspNet.Routing.Template;
 
 namespace Toolbox.Codetable
 {
@@ -24,11 +27,12 @@ namespace Toolbox.Codetable
         {
             var provider = app.ApplicationServices.GetService<ICodetableProvider>();
             if (provider == null) throw ExceptionProvider.CodetableProviderNotRegistered();
-            var options = app.ApplicationServices.GetService<CodetableDiscoveryOptions>();
-            var assembly = options.ControllerAssembly == null ? Assembly.GetCallingAssembly() : options.ControllerAssembly;
+            var options = app.ApplicationServices.GetService<IOptions<CodetableDiscoveryOptions>>();
+            var codetableDiscoveryOptions = options.Value;
+            var assembly = codetableDiscoveryOptions.ControllerAssembly == null ? Assembly.GetCallingAssembly() : codetableDiscoveryOptions.ControllerAssembly;
             provider.Load(assembly);
 
-            if (!String.IsNullOrWhiteSpace(options.Route)) SetRoute(app, options.Route);
+            if (!String.IsNullOrWhiteSpace(codetableDiscoveryOptions.Route)) SetRoute(app, codetableDiscoveryOptions.Route);
 
             return app;
         }
@@ -52,14 +56,12 @@ namespace Toolbox.Codetable
             if (actionDescriptorsProvider == null) throw ExceptionProvider.MvcNotRegisteredNoActionDescriptorsProvider();
 
             var controllers = from c in actionDescriptorsProvider.ActionDescriptors.Items
-                              where c.DisplayName.ToLower().StartsWith("Toolbox.Codetable.codetableprovider", StringComparison.Ordinal)
+                              where c.DisplayName.ToLower().StartsWith("Toolbox.Codetable.codetableprovider", StringComparison.OrdinalIgnoreCase)
                               select c;
 
             if (controllers.Count() == 0) throw ExceptionProvider.MvcNotRegisteredNoControllers();
 
             return controllers;
         }
-
-       
     }
 }
