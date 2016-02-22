@@ -24,7 +24,7 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "Toolbox.Codetable": "1.1.5",
+        "Toolbox.Codetable": "1.2.0",
         "Toolbox.DataAccess": "1.6.0",
         "Toolbox.DataAccess.Postgres": "1.0.0"
       }
