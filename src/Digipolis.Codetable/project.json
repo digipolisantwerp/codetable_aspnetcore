@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0-*",
+
+  "dependencies": {
+    "AutoMapper": "5.0.2",
+    "NETStandard.Library": "1.6.0",
+    "Digipolis.Common": "2.0.0",
+    "Digipolis.DataAccess": "2.0.0",
+    "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
+    "Microsoft.Extensions.Options": "1.0.0"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}
+

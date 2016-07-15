@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+﻿using Digipolis.Codetable;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Toolbox.Codetable;
-using Toolbox.DataAccess;
 using WebTest.DataAccess;
-using Toolbox.DataAccess.Postgres;
-using WebTest.Config;
 
 namespace WebTest
 {
@@ -19,31 +13,22 @@ namespace WebTest
     {
         public Startup(IHostingEnvironment env)
         {
-            // Set up configuration sources.
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json");
-
-            builder.AddEnvironmentVariables();
-            Configuration = builder.Build().ReloadOnChanged("appsettings.json");
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Configure the automapper
-            AutoMapperConfiguration.Configure();
-
             //Configure DataAccess service
-            var connString = new ConnectionString("localhost", 5432, "webtest", "postgres", "P0stgr3s");
-            services.AddDataAccess<MyDataContext>(opt =>
-            {
-                opt.ConnectionString = connString;
-                opt.DbConfiguration = new PostgresDbConfiguration();
-                opt.DefaultSchema = "public";
-                opt.PluralizeTableNames = false;
-            });
+            var connection = @"Server=localhost;Port=5432;Database=webtest;User Id=postgres;Password=P0stgr3s;";
+            services.AddDbContext<MyDataContext>(options => options.UseNpgsql(connection));
 
             //Use the default CodetableDiscoveryOptions
             //services.AddCodetableDiscovery();
@@ -54,22 +39,19 @@ namespace WebTest
                 options.Route = "custom/codetables";
             });
 
+            // Add framework services.
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            
-            app.UseIISPlatformHandler();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
             app.UseMvc();
 
             app.UseCodetableDiscovery();
-
         }
-
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

@@ -1,6 +1,6 @@
 # Codetable Toolbox
 
-The Codetable Toolbox offers following functionalities for ASP.NET 5 Web Api projects :
+The Codetable Toolbox offers following functionalities for ASP.NET Core Web Api projects :
 
 - Generic base classes to deal with code tables in a uniform way.
 - Create a codetable discovery framework that adds an endpoint on which the list of Codetables can be retrieved.
@@ -9,8 +9,6 @@ The Codetable Toolbox offers following functionalities for ASP.NET 5 Web Api pro
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
   - [Installation](#installation)
     - [Setup Codetable Discovery Framework](#setup-codetable-discovery-framework)
     - [Installation of DataAccess](#installation-of-dataaccess)
@@ -24,14 +22,13 @@ The Codetable Toolbox offers following functionalities for ASP.NET 5 Web Api pro
 - [Versions](#versions)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Installation
 Adding the toolbox to a project can be done via the NuGet Package Manager in Visual Studio or by adding the package to the project.json :
 
 ``` json
  "dependencies": {
     ...,
-    "Toolbox.Codetable":  "1.2.0",
+    "Toolbox.Codetable":  "2.0.0",
     ...
  }
 ```
@@ -52,7 +49,7 @@ If you are satisfied with the default options, there is no need to pass an argme
 Passing deviating options can be done by using the CodetableDiscoveryOptions argument passed into the setup action :
 
 ``` csharp
-   app.UseCodetableDiscovery(options => 
+   app.UseCodetableDiscovery(options =>
    {
        options.Route = "custom/codetables";
    });
@@ -63,7 +60,7 @@ Following options can be set :
 Option              | Description                                                | Default
 ------------------ | ----------------------------------------------------------- | --------------------------------------
 Route              | the url where the list of codetables can be requested | admin/Codetable
-ControllerAssembly | the assembly in which the codetable controllers can be searched | the assembly that contains the Startup class  
+ControllerAssembly | the assembly in which the codetable controllers can be searched | the assembly that contains the Startup class
 
 
 In the Configure method of the startup class, the framework is launched.
@@ -73,9 +70,9 @@ In the Configure method of the startup class, the framework is launched.
 ```
 
 ### Installation of DataAccess
-This toolbox has a dependency on the Toolbox.DataAccess package which must also be set in the startup.
+This toolbox has a dependency on the Digipolis.DataAccess package which must also be set in the startup.
 
-For detailed instructions, refer to the ReadMe.md of the Toolbox.DataAccess repository on Github: https://github.com/digipolisantwerp/dataaccess_aspnet5
+For detailed instructions, refer to the ReadMe.md of the Digipolis.DataAccess repository on Github: https://github.com/digipolisantwerp/dataaccess_aspnet5
 
 
 ## Base Classes
@@ -87,15 +84,15 @@ From this base class CodeTable entities can be inherited. It provides a uniform 
 Naam         | Type        | Required
 ------------ | ----------- | ---------
 Id           | int         | key
-Code         | string(50)  | required  
+Code         | string(50)  | required
 Value       | string(100) | required
-Description | string(250) | optional         
-Sortindex   | int         | required  
+Description | string(250) | optional
+Sortindex   | int         | required
 Disabled     | bool        | required
 
 
 ``` csharp
-using Toolbox.Codetable.Entities;
+using Digipolis.Codetable.Entities;
     namespace xxx.Entities
 	{
 	    public class Theme : CodetableEntityBase {    }
@@ -124,65 +121,67 @@ This generic base class provides CRUD endpoints for the CodeTable. The example b
     [CodetableController]
     public class ThemeController : CodetableControllerBase<Entities.Theme, Api.Models.Theme>
     {
-        public ThemeController(IServiceCollection collection) : base(collection)
-        {
-        }
+    public ThemeController(IServiceCollection collection) : base(collection)
+    {
     }
-```
+    }
+    ```
 
-To see this as a working example an AutoMapper configuration should be added
-``` csharp
-    Mapper.CreateMap<Entities.Theme, Api.Models.Theme>();
-```
+    To see this as a working example an AutoMapper configuration should be added
+    ``` csharp
+    Mapper.CreateMap<Entities.Theme, Api.Models.Theme>
+        ();
+        ```
 
-### CodetableControllerAttribute
-If this attribute is used with a controller that exposes a CodeTable on the API, the discovery framework can recognize and add it to the list. The above example illustrates this for the theme CodeTable.
-By default, the name of the controller (without controller) is taken as the name of the CodeTable (in the above example **_theme_**). You can also give a different name to the attribute :
+        ### CodetableControllerAttribute
+        If this attribute is used with a controller that exposes a CodeTable on the API, the discovery framework can recognize and add it to the list. The above example illustrates this for the theme CodeTable.
+        By default, the name of the controller (without controller) is taken as the name of the CodeTable (in the above example **_theme_**). You can also give a different name to the attribute :
 
-``` csharp
-[CodetableController("DisplayTheme")]
-public class ThemeController
-{
-   ...
-}
-```
-This generates **DisplayTheme** as the name for the Codetable.
-
-
-### CodetableInfo
-The api endpoint returns a list of objects of the type **_CodetableInfo_**. CodetableInfo contains the following properties :
-
-Property | Type | Description
--------- | ------ | -------------------------
-Name     | string | The name of the Codetable.
-Route    | string | The url of the Codetable.
+        ``` csharp
+        [CodetableController("DisplayTheme")]
+        public class ThemeController
+        {
+        ...
+        }
+        ```
+        This generates **DisplayTheme** as the name for the Codetable.
 
 
-### ICodetableProvider
-If you need the list of Codetables in the application itself or if the default supplied endpoint is not enough, you can directly address the ICodetableProvider. The provider is registered in the ASP.NET dependency container during startup and you can then inject this in your own code :
+        ### CodetableInfo
+        The api endpoint returns a list of objects of the type **_CodetableInfo_**. CodetableInfo contains the following properties :
 
-``` csharp
-public class MyController
-{
-   public MyController(ICodetableProvider CodetableProvider)
-   {
-      _CodetableProvider = CodetableProvider;
-   }
-   ...
-}
-```
-After that the list is available via the **_Codetables_** property :
-
-``` csharp
-   var Codetables = _CodetableProvider.Codetables;
-```
+        Property | Type | Description
+        -------- | ------ | -------------------------
+        Name     | string | The name of the Codetable.
+        Route    | string | The url of the Codetable.
 
 
-# Versions
+        ### ICodetableProvider
+        If you need the list of Codetables in the application itself or if the default supplied endpoint is not enough, you can directly address the ICodetableProvider. The provider is registered in the ASP.NET dependency container during startup and you can then inject this in your own code :
 
-Versie | Author                                  | Description
------- | ----------------------------------------| --------------------------------------------------------------------------
-1.0.12 | Steven Vanden Broeck                    | Initiële versie. CodetableDiscovery en base classes.
-1.1.1  | Sven Noreillie				 | Uitwerking ControllerBase, Generic readers & writers, Access naar database
-1.1.2  | Koen Stroobants				 | Translation to English
-1.2.0  | Jimmy Hannon				 | Changed the options configuration model and added a test/sample project
+        ``` csharp
+        public class MyController
+        {
+        public MyController(ICodetableProvider CodetableProvider)
+        {
+        _CodetableProvider = CodetableProvider;
+        }
+        ...
+        }
+        ```
+        After that the list is available via the **_Codetables_** property :
+
+        ``` csharp
+        var Codetables = _CodetableProvider.Codetables;
+        ```
+
+
+        # Versions
+
+        Versie | Author                                  | Description
+        ------ | ----------------------------------------| --------------------------------------------------------------------------
+        1.0.12 | Steven Vanden Broeck                    | Initiële versie. CodetableDiscovery en base classes.
+        1.1.1  | Sven Noreillie				 | Uitwerking ControllerBase, Generic readers & writers, Access naar database
+        1.1.2  | Koen Stroobants				 | Translation to English
+        1.2.0  | Jimmy Hannon				 | Changed the options configuration model and added a test/sample project
+        2.0.0  | Jimmy Hannon				 | Upgrade to dotnet core 1.0 RTM

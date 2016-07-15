@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Digipolis.Codetable;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Toolbox.Codetable;
 using WebTest.Entities;
 
 namespace WebTest.Controllers
