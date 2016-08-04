@@ -19,7 +19,7 @@ namespace Digipolis.Codetable
         private readonly ICodetableReader<TCodeTabelEntity> _reader;
         private readonly ICodetableWriter<TCodeTabelEntity> _writer;
 
-        public CodetableControllerBase(IServiceCollection service, ILogger<Controller> logger, [FromServices] IMapper mapper) : base(logger,mapper)
+        public CodetableControllerBase(IServiceCollection service, ILogger<Controller> logger, IMapper mapper) : base(logger,mapper)
         {
             _reader = service.BuildServiceProvider().GetService<ICodetableReader<TCodeTabelEntity>>();
             _writer = service.BuildServiceProvider().GetService<ICodetableWriter<TCodeTabelEntity>>();
