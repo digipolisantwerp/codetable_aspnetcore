@@ -1,4 +1,5 @@
-﻿using Digipolis.Codetable.Business;
+﻿using AutoMapper;
+using Digipolis.Codetable.Business;
 using Digipolis.Codetable.Models;
 using Digipolis.Common.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,14 @@ namespace Digipolis.Codetable.Controllers
 {
     public abstract class ControllerBase : Controller
     {
-        protected ControllerBase(ILogger<Controller> logger)
+        protected ControllerBase(ILogger<Controller> logger, IMapper mapper)
         {
             this.Logger = logger;
+            this.Mapper = mapper;
         }
 
         protected ILogger<Controller> Logger { get; private set; }
+        protected IMapper Mapper { get; private set; }
 
         protected virtual IActionResult BadRequestResult(ModelStateDictionary modelState)
         {
