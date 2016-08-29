@@ -28,7 +28,7 @@ Adding the toolbox to a project can be done via the NuGet Package Manager in Vis
 ``` json
  "dependencies": {
     ...,
-    "Toolbox.Codetable":  "2.0.0",
+    "Toolbox.Codetable":  "2.1.0",
     ...
  }
 ```
@@ -185,3 +185,4 @@ This generic base class provides CRUD endpoints for the CodeTable. The example b
         1.1.2  | Koen Stroobants				 | Translation to English
         1.2.0  | Jimmy Hannon				 | Changed the options configuration model and added a test/sample project
         2.0.0  | Jimmy Hannon				 | Upgrade to dotnet core 1.0 RTM
+		2.1.0  | Rachel Bellenge				 | Changed DataAccess toolbox version 2.3
