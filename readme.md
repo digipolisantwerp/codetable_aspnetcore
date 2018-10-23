@@ -106,10 +106,10 @@ This base class can be used to inherit from for the CodeTable models. She has th
 
 ``` csharp
 using Digipolis.Codetable.Models;
-    namespace xxx.Api.Models
-	{
-	    public class Theme : CodetableModelBase {    }
-	}
+namespace xxx.Api.Models
+{
+    public class Theme : CodetableModelBase {    }
+}
 ```
 
 ### CodetableControllerBase
@@ -117,72 +117,76 @@ using Digipolis.Codetable.Models;
 This generic base class provides CRUD endpoints for the CodeTable. The example below shows a fully developed controller for a CodeTable 'Theme'
 
 ``` csharp
-    [Route("api/[Controller]")]
-    [CodetableController]
-    public class ThemeController : CodetableControllerBase<Entities.Theme, Api.Models.Theme>
-    {
-    public ThemeController(IServiceCollection collection) : base(collection)
-    {
-    }
-    }
-    ```
+[Route("api/[Controller]")]
+[CodetableController]
+public class ThemeController : CodetableControllerBase<Entities.Theme, Api.Models.Theme>
+{
+	public ThemeController(IServiceCollection collection) : base(collection)
+	{
+	}
+}
+```
 
-    To see this as a working example an AutoMapper configuration should be added
-    ``` csharp
-    Mapper.CreateMap<Entities.Theme, Api.Models.Theme>
-        ();
-        ```
+To see this as a working example an AutoMapper configuration should be added
 
-        ### CodetableControllerAttribute
-        If this attribute is used with a controller that exposes a CodeTable on the API, the discovery framework can recognize and add it to the list. The above example illustrates this for the theme CodeTable.
-        By default, the name of the controller (without controller) is taken as the name of the CodeTable (in the above example **_theme_**). You can also give a different name to the attribute :
+``` csharp
+    Mapper.CreateMap<Entities.Theme, Api.Models.Theme>();
+```
 
-        ``` csharp
-        [CodetableController("DisplayTheme")]
-        public class ThemeController
-        {
-        ...
-        }
-        ```
-        This generates **DisplayTheme** as the name for the Codetable.
+### CodetableControllerAttribute
+
+If this attribute is used with a controller that exposes a CodeTable on the API, the discovery framework can recognize and add it to the list. The above example illustrates this for the theme CodeTable.
+
+By default, the name of the controller (without controller) is taken as the name of the CodeTable (in the above example **_theme_**). You can also give a different name to the attribute:
 
 
-        ### CodetableInfo
-        The api endpoint returns a list of objects of the type **_CodetableInfo_**. CodetableInfo contains the following properties :
+``` csharp
+[CodetableController("DisplayTheme")]
+public class ThemeController
+{
+	...
+}
+```
 
-        Property | Type | Description
-        -------- | ------ | -------------------------
-        Name     | string | The name of the Codetable.
-        Route    | string | The url of the Codetable.
-
-
-        ### ICodetableProvider
-        If you need the list of Codetables in the application itself or if the default supplied endpoint is not enough, you can directly address the ICodetableProvider. The provider is registered in the ASP.NET dependency container during startup and you can then inject this in your own code :
-
-        ``` csharp
-        public class MyController
-        {
-        public MyController(ICodetableProvider CodetableProvider)
-        {
-        _CodetableProvider = CodetableProvider;
-        }
-        ...
-        }
-        ```
-        After that the list is available via the **_Codetables_** property :
-
-        ``` csharp
-        var Codetables = _CodetableProvider.Codetables;
-        ```
+This generates **DisplayTheme** as the name for the Codetable.
 
 
-        # Versions
+### CodetableInfo
+The api endpoint returns a list of objects of the type **_CodetableInfo_**. CodetableInfo contains the following properties :
 
-        Versie | Author                                  | Description
-        ------ | ----------------------------------------| --------------------------------------------------------------------------
-        1.0.12 | Steven Vanden Broeck                    | Initiële versie. CodetableDiscovery en base classes.
-        1.1.1  | Sven Noreillie				 | Uitwerking ControllerBase, Generic readers & writers, Access naar database
-        1.1.2  | Koen Stroobants				 | Translation to English
-        1.2.0  | Jimmy Hannon				 | Changed the options configuration model and added a test/sample project
-        2.0.0  | Jimmy Hannon				 | Upgrade to dotnet core 1.0 RTM
-		2.1.0  | Rachel Bellenge				 | Changed DataAccess toolbox version 2.3
+Property | Type | Description
+-------- | ------ | -------------------------
+Name     | string | The name of the Codetable.
+Route    | string | The url of the Codetable.
+
+
+### ICodetableProvider
+If you need the list of Codetables in the application itself or if the default supplied endpoint is not enough, you can directly address the ICodetableProvider. The provider is registered in the ASP.NET dependency container during startup and you can then inject this in your own code :
+
+``` csharp
+public class MyController
+{
+	public MyController(ICodetableProvider CodetableProvider)
+	{
+		_CodetableProvider = CodetableProvider;
+	}
+	...
+}
+```
+After that the list is available via the **_Codetables_** property :
+
+``` csharp
+var Codetables = _CodetableProvider.Codetables;
+```
+
+
+# Versions
+
+Versie | Author                                  | Description
+------ | ----------------------------------------| --------------------------------------------------------------------------
+1.0.12 | Steven Vanden Broeck                    | Initiële versie. CodetableDiscovery en base classes.
+1.1.1  | Sven Noreillie				 | Uitwerking ControllerBase, Generic readers & writers, Access naar database
+1.1.2  | Koen Stroobants				 | Translation to English
+1.2.0  | Jimmy Hannon				 | Changed the options configuration model and added a test/sample project
+2.0.0  | Jimmy Hannon				 | Upgrade to dotnet core 1.0 RTM
+2.1.0  | Rachel Bellenge				 | Changed DataAccess toolbox version 2.3
